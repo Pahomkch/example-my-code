@@ -1,0 +1,21 @@
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.dispay-block {
+  display: block;
+}
+
+.dispay-inline-blick {
+  display: inline-block;
+}
+
+.p {
+  padding: 15px;
+}
+
+.m {
+  margin: 15px;
+}
