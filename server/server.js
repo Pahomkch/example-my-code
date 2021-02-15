@@ -24,6 +24,8 @@ const dbInFuture = [
   },
 ];
 
+const PORT = process.env.PORT || 5000;
+
 const app = express();
 app.use(cors());
 
@@ -50,6 +52,6 @@ app.use(
   })
 );
 
-app.listen(process.env.PORT, () => {
-  console.log("server is run on port" + process.env.PORT);
+app.listen(PORT, () => {
+  console.log("server is run on port " + PORT);
 });
