@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { Button } from "antd";
+import { Button, InputNumber } from "antd";
 import "./App.css";
 import { GET_ALL_USERS, GET_ONE_USER } from "./query/user";
 import { CREATE_USER } from "./mutations/user";
@@ -33,10 +33,8 @@ function App() {
   const onSubmit = (e) => {
     e.preventDefault();
   };
-  const getOneUser = (e) => {
-    if (!loadingOneUser) {
-      setUser(oneUser);
-    }
+  const getUserByID = (e) => {
+    refetchOneUser();
   };
   const addUser = (e) => {
     e.preventDefault();
@@ -60,41 +58,41 @@ function App() {
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <fieldset>
-          <legend>Get user with ID</legend>
-          <input type="number" min="1" value={IDuser} onChange={(e) => setIDuser(e.target.value)} />
-          <Button type="primary" onClick={getOneUser}>
-            GET USER with id: {IDuser ? IDuser : "unknow"}
-          </Button>
-        </fieldset>
+        <div className="flex">
+          <fieldset>
+            <legend>Search USER by ID</legend>
+            <h2>{oneUser?.getUser?.username || "Not Found"}</h2>
+            <InputNumber value={IDuser} onChange={(value) => setIDuser(+value)} />
+          </fieldset>
 
-        <fieldset>
-          <legend>Create new USER</legend>
-          <div>
-            <label>
-              User name:
-              <input
-                value={user.username}
-                name="username"
-                onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              User age:
-              <input
-                type="number"
-                value={user.age}
-                name="age"
-                onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
-              />
-            </label>
-          </div>
-          <Button type="primary" onClick={addUser}>
-            Create user
-          </Button>
-        </fieldset>
+          <fieldset>
+            <legend>Create new USER</legend>
+            <div>
+              <label>
+                User name:
+                <input
+                  value={user.username}
+                  name="username"
+                  onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                User age:
+                <input
+                  type="number"
+                  value={user.age}
+                  name="age"
+                  onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
+                />
+              </label>
+            </div>
+            <Button type="primary" onClick={addUser}>
+              Create user
+            </Button>
+          </fieldset>
+        </div>
       </form>
 
       <div>
@@ -102,7 +100,7 @@ function App() {
           users.map((user) => {
             return (
               <div key={user.id}>
-                {user.username}, age: {user.age}
+                {user.username}, age: {user.age}, ID: {user.id}
               </div>
             );
           })}
