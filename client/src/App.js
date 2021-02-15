@@ -47,12 +47,10 @@ function App() {
       <form onSubmit={onSubmit}>
         <fieldset className={"p"}>
           <legend>Get user with ID</legend>
-
           <input type="number" min="1" value={IDuser} onChange={(e) => setIDuser(e.target.value)} />
-          <button className="dispay-block" onClick={getOneUser}>
-            GET User With Id {IDuser}
-          </button>
-          <Button type="secondary">Button ANT-D</Button>
+          <Button type="secondary" onClick={getOneUser}>
+            GET USER with id: {IDuser ? IDuser : "unknow"}
+          </Button>
         </fieldset>
         <div>
           <label>
