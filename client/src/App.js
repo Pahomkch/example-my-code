@@ -47,7 +47,10 @@ function App() {
           age: +user.age,
         },
       },
-    }).then((data) => console.log(data));
+    }).then(({ data }) => {
+      const { id, username, age } = data.createUser;
+      setUsers([...users, { id, username, age }]);
+    });
   };
 
   if (loading) {
@@ -60,7 +63,7 @@ function App() {
         <fieldset>
           <legend>Get user with ID</legend>
           <input type="number" min="1" value={IDuser} onChange={(e) => setIDuser(e.target.value)} />
-          <Button type="secondary" onClick={getOneUser}>
+          <Button type="primary" onClick={getOneUser}>
             GET USER with id: {IDuser ? IDuser : "unknow"}
           </Button>
         </fieldset>
@@ -88,13 +91,11 @@ function App() {
               />
             </label>
           </div>
-          <button type="submit" className="dispay-block" onClick={addUser}>
+          <Button type="primary" onClick={addUser}>
             Create user
-          </button>
+          </Button>
         </fieldset>
       </form>
-
-      <h2>{JSON.stringify(user)}</h2>
 
       <div>
         {users &&
