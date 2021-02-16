@@ -3,11 +3,11 @@
   margin: 0;
 }
 
-.dispay-block {
+.block {
   display: block;
 }
 
-.dispay-inline-blick {
+.inline {
   display: inline-block;
 }
 

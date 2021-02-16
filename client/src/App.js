@@ -60,43 +60,50 @@ function App() {
 
   return (
     <div>
-      <Row>
+      <Row align="top" justify="center">
         <Col>
           <form onSubmit={onSubmit}>
-            <fieldset>
-              <legend>Search USER by ID</legend>
-              <h2>{oneUser?.getUser?.username || "Not Found"}</h2>
-              <InputNumber value={IDuser} onChange={(value) => setIDuser(+value)} />
-            </fieldset>
-
-            <fieldset>
-              <legend>Create new USER</legend>
-              <label>
-                User name:
-                <input
-                  value={user.username}
-                  name="username"
-                  onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
-                />
-              </label>
-              <label>
-                User age:
-                <input
-                  type="number"
-                  value={user.age}
-                  name="age"
-                  onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
-                />
-              </label>
-              <Button type="primary" onClick={addUser}>
-                Create user
-              </Button>
-            </fieldset>
+            <Row gutter={30}>
+              <Col>
+                <fieldset className={"inline"}>
+                  <legend>Search USER by ID</legend>
+                  <h2>{oneUser?.getUser?.username || "Not Found"}</h2>
+                  <InputNumber value={IDuser} onChange={(value) => setIDuser(+value)} />
+                </fieldset>
+              </Col>
+              <Col>
+                <fieldset className={"inline"}>
+                  <legend>Create new USER</legend>
+                  <label className={"block"}>
+                    User name:
+                    <input
+                      className={"block"}
+                      value={user.username}
+                      name="username"
+                      onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
+                    />
+                  </label>
+                  <label className={"block"}>
+                    User age:
+                    <input
+                      className={"block"}
+                      type="number"
+                      value={user.age}
+                      name="age"
+                      onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
+                    />
+                  </label>
+                  <Button style={{ marginTop: 5 }} type="primary" onClick={addUser}>
+                    Create user
+                  </Button>
+                </fieldset>
+              </Col>
+            </Row>
           </form>
         </Col>
       </Row>
 
-      <Row>
+      <Row style={{ border: "1px solid black" }}>
         <Col>
           <div>
             {users &&
