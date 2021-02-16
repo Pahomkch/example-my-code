@@ -1,6 +1,8 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { Button, InputNumber } from "antd";
+import { Button, Col, InputNumber, Row, Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+
 import "./App.css";
 import { GET_ALL_USERS, GET_ONE_USER } from "./query/user";
 import { CREATE_USER } from "./mutations/user";
@@ -52,22 +54,23 @@ function App() {
   };
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+    return <Spin indicator={antIcon} />;
   }
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
-        <div className="flex">
-          <fieldset>
-            <legend>Search USER by ID</legend>
-            <h2>{oneUser?.getUser?.username || "Not Found"}</h2>
-            <InputNumber value={IDuser} onChange={(value) => setIDuser(+value)} />
-          </fieldset>
+      <Row>
+        <Col>
+          <form onSubmit={onSubmit}>
+            <fieldset>
+              <legend>Search USER by ID</legend>
+              <h2>{oneUser?.getUser?.username || "Not Found"}</h2>
+              <InputNumber value={IDuser} onChange={(value) => setIDuser(+value)} />
+            </fieldset>
 
-          <fieldset>
-            <legend>Create new USER</legend>
-            <div>
+            <fieldset>
+              <legend>Create new USER</legend>
               <label>
                 User name:
                 <input
@@ -76,8 +79,6 @@ function App() {
                   onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
                 />
               </label>
-            </div>
-            <div>
               <label>
                 User age:
                 <input
@@ -87,24 +88,28 @@ function App() {
                   onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
                 />
               </label>
-            </div>
-            <Button type="primary" onClick={addUser}>
-              Create user
-            </Button>
-          </fieldset>
-        </div>
-      </form>
+              <Button type="primary" onClick={addUser}>
+                Create user
+              </Button>
+            </fieldset>
+          </form>
+        </Col>
+      </Row>
 
-      <div>
-        {users &&
-          users.map((user) => {
-            return (
-              <div key={user.id}>
-                {user.username}, age: {user.age}, ID: {user.id}
-              </div>
-            );
-          })}
-      </div>
+      <Row>
+        <Col>
+          <div>
+            {users &&
+              users.map((user) => {
+                return (
+                  <div key={user.id}>
+                    {user.username}, age: {user.age}, ID: {user.id}
+                  </div>
+                );
+              })}
+          </div>
+        </Col>
+      </Row>
     </div>
   );
 }
